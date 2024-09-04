@@ -16,4 +16,4 @@ jobs:
               User ${{ secrets.USERNAME }}
               IdentityFile ~/.ssh/id_rsa
       - name: run
-        run: ssh server "echo 'hogehoge'"
+        run: ssh server "echo 'hogehogehoge'"
