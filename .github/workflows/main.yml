@@ -13,12 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up SSH
-      run: |
-        # echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        # chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
-
     - name: SSH Command
       run: |
-        ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} "echo 'Hello from GitHub Actions!'"
+        ssh -o StrictHostKeyChecking=no ec2-user "echo 'Hello from self-hosted runner!'"
