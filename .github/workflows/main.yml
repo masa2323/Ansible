@@ -2,7 +2,7 @@ on: push
 name: run ssh
 jobs:
   run-ssh:
-    runs-on: self-hosted
+    runs-on: ubunts-latest
     steps:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
