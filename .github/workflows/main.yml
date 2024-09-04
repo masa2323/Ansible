@@ -1,9 +1,25 @@
-name: Sample
+name: SSH to Linux Server
+
 on:
-  - push
+  push:
+    branches:
+      - main
+
 jobs:
-  echo:
+  ssh_job:
     runs-on: self-hosted
+
     steps:
-      - name: Hello world
-        run: echo hello, world!
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+
+    - name: SSH Command
+      run: |
+        ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} "echo 'Hello from GitHub Actions!'"
